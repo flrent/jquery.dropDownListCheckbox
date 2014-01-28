@@ -1,16 +1,16 @@
 /* plugin specific */
-.checkboxContainer {
+.ddlcb-checkboxContainer {
 	width: 48px;
 	background: white;
 	height: 30px;
 	border: 1px solid #F8F8F8;
 }
 
-.checkboxContainer:hover {
+.ddlcb-checkboxContainer:hover {
 	border: 1px solid #EEE;
 }
 
-.checkboxContainer ul {
+.ddlcb-checkboxContainer ul {
 	margin-top: 30px;
 	display: none;
 	background: white;
@@ -25,20 +25,20 @@
 	margin-left: -1px;
 }
 
-.checkboxContainer li {
+.ddlcb-checkboxContainer li {
 	padding: 10px;
 	width: 100px;
 }
 
-.checkboxContainer li:hover {
+.ddlcb-checkboxContainer li:hover {
 	background: #EEE;
 }
 
-.checkboxContainer div {
+.ddlcb-checkboxContainer div {
 	display: inline;
 }
 
-.checkboxContainer div.checkboxCase {
+.ddlcb-checkboxContainer div.ddlcb-checkboxCase {
 	color: #00f;
 	background: transparent;
 	height: 15px;
@@ -50,17 +50,17 @@
 	margin-top: 7px;
 }
 
-.checkboxContainer div.checkboxCase.checked {
+.ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-checked {
 	background: url('check-mark.png') no-repeat center center;
 }
 
-.checkboxContainer div.left {
+.ddlcb-checkboxContainer div.ddlcb-left {
 	height: 33px;
 	background: transparent;
 	float: left;
 }
 
-.checkboxContainer div.right {
+.ddlcb-checkboxContainer div.ddlcb-right {
 	float: right;
 	height: 6px;
 	background: url('arrow_down.png') no-repeat center center;

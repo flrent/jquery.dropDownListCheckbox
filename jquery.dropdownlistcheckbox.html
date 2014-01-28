@@ -6,10 +6,10 @@
 	<script type="text/javascript">
 
 		$(document).ready(function() {
-			$(".checkboxContainer").dropDownListCheckbox({
-				containerCls:'checkboxContainer',
-				checkboxCls:'checkboxCase',
-				arrowCls:'right'	
+			$(".ddlcb").dropDownListCheckbox({
+				containerCls:'ddlcb',
+				checkboxCls:'ddlcb-checkboxCase',
+				arrowCls:'ddlcb-right'	
 			});
 		});
 
@@ -26,12 +26,11 @@
 	<link rel="stylesheet" type="text/css" href="jquery.dropdownlistcheckbox.css" />
 </head>
 <body>
-	<div class="checkboxContainer">
-		<div class="left">
-			<div class="checkboxCase"></div>
+	<div class="ddlcb ddlcb-checkboxContainer">
+		<div class="ddlcb-left">
+			<div class="ddlcb-checkboxCase"></div>
 		</div>
-		<div class="right">
-		</div>
+		<div class="ddlcb-right"></div>
 		<ul>
 			<li class="all">Select all</li>
 			<li class="none">Select none</li>

@@ -4,8 +4,8 @@
         var item = this;
         var opts = opts || {
         	containerCls:'cccccc',
-			checkboxCls:'checkboxCase',
-			arrowCls:'right'
+			checkboxCls:'ddlcb-checkboxCase',
+			arrowCls:'ddlcb-right'
 		};
 
         $("."+opts.containerCls).click(function (event) {
@@ -30,11 +30,11 @@
         });
 
         $("." + opts.checkboxCls).click(function () {
-            if ($(this).hasClass("checked")) {
-                $(this).removeClass("checked");
+            if ($(this).hasClass("ddlcb-checked")) {
+                $(this).removeClass("ddlcb-checked");
             }
             else {
-                $(this).addClass("checked");
+                $(this).addClass("ddlcb-checked");
             }
         });
 
