@@ -6,11 +6,20 @@
 	<script type="text/javascript">
 
 		$(document).ready(function() {
-			$(".ddlcb").dropDownListCheckbox({
-				containerCls:'ddlcb',
+			$("#ddlcb").dropDownListCheckbox({
+				containerCls: "#ddlcb",
 				checkboxCls:'ddlcb-checkboxCase',
 				arrowCls:'ddlcb-right'	
 			});
+			
+	        $("#ddlcb div.ddlcb-checkboxCase").click(function () {
+	            if ($(this).hasClass("ddlcb-checked")) {
+	                alert("You selected all!");
+	            }
+	            else {
+	                alert("You unselected all!");
+	            }
+	        });			
 		});
 
 	</script>
@@ -26,7 +35,7 @@
 	<link rel="stylesheet" type="text/css" href="jquery.dropdownlistcheckbox.css" />
 </head>
 <body>
-	<div class="ddlcb ddlcb-checkboxContainer">
+	<div id="ddlcb" class="ddlcb-checkboxContainer">
 		<div class="ddlcb-left">
 			<div class="ddlcb-checkboxCase"></div>
 		</div>

@@ -8,7 +8,7 @@
 			arrowCls:'ddlcb-right'
 		};
 
-        $("."+opts.containerCls).click(function (event) {
+        $(opts.containerCls).click(function (event) {
         	event.stopPropagation();
             var $tgt = $(event.target);
             if ($tgt.hasClass(opts.containerCls) || $tgt.hasClass(opts.arrowCls)) {
