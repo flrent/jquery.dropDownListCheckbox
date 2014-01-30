@@ -5,7 +5,8 @@
 		var opts = opts || {
 			containerCls : 'cccccc',
 			checkboxCls : '.ddlcb-checkboxCase',
-			arrowCls : 'ddlcb-right'
+			arrowCls : 'ddlcb-right',
+			mainOption: '.ddlcb-all'
 		};
 
 		$(opts.containerCls).click(
@@ -31,25 +32,26 @@
 				});
 
 		$(opts.checkboxCls).click(function() {
-			if ($(this).hasClass("ddlcb-checked")) {
-				$(this).removeClass("ddlcb-checked");
-			} else {
-				$(this).addClass("ddlcb-checked");
-			}
+		    $(this).toggleClass("ddlcb-checked");
+		    $.fn.dropDownListCheckbox.toggleOption($(opts.containerCls + " li:first-child"));
 		});
 
 		this.children("ul").children("li").click(function() {
-			var $this = $(this);
-			$this.parent("ul").hide();
-			$("html").unbind("click");
-			if ($this.hasClass("ddlcb-checked")) {
-				$this.removeClass("ddlcb-checked");
-			} else {
-				$this.parent("ul").children("li").removeClass("ddlcb-checked");
-				$this.addClass("ddlcb-checked");
-			}
+		    var $this = $(this);
+		    if ($this.is(":first-child")) {
+		        $(opts.checkboxCls).toggleClass("ddlcb-checked");
+		    }
+		    $.fn.dropDownListCheckbox.toggleOption($this);
 		});
 
 		return this;
 	};
+	
+	$.fn.dropDownListCheckbox.toggleOption = function(option) {
+		option.parent("ul").hide();
+		$("html").unbind("click");
+		option.siblings().removeClass("ddlcb-checked");
+		option.toggleClass("ddlcb-checked");
+	};
+
 })(jQuery);

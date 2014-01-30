@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <html class="ie">
     <head>
         <title>MultiSelect</title>
@@ -6,29 +7,30 @@
         <script type="text/javascript">
 
 		$(document).ready(function() {
-			$("#ddlcb").dropDownListCheckbox({
+			var ddlcb = $("#ddlcb").dropDownListCheckbox({
 				containerCls: "#ddlcb",
 				checkboxCls:'.ddlcb-checkboxCase',
-				arrowCls:'ddlcb-right'	
+				arrowCls:'ddlcb-right',
+				mainOption: '.ddlcb-all'
 			});
-			
-	        $("#ddlcb div.ddlcb-checkboxCase").click(function () {
-	            if ($(this).hasClass("ddlcb-checked")) {
-	                alert("You selected all!");
-	            }
-	            else {
-	                alert("You unselected all!");
-	            }
-	        });
+
+	       // $("#ddlcb div.ddlcb-checkboxCase").click(function () {
+	       //     if ($(this).hasClass("ddlcb-checked")) {
+	       //         alert("You selected all!");
+	       //     }
+	       //     else {
+	       //         alert("You unselected all!");
+	       //     }
+	       // });
 	        
-	        $("#ddlcb li").click(function () {
-	        	var $this = $(this);
-				if ($this.hasClass("ddlcb-checked")) {
-					alert("checked " + $this.attr("class"));
-				} else {
-					alert("unchecked " + $this.attr("class"));
-				}
-	        });	        
+	   //     $("#ddlcb li").click(function () {
+	   //     	var $this = $(this);
+				// if ($this.hasClass("ddlcb-checked")) {
+				// 	alert("checked " + $this.attr("class"));
+				// } else {
+				// 	alert("unchecked " + $this.attr("class"));
+				// }
+	   //     });	        
 		});
 
 	</script>
