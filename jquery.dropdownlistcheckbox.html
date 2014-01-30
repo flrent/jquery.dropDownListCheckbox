@@ -1,14 +1,14 @@
 <html class="ie">
-<head>
-	<title>MultiSelect</title>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script type="text/javascript" src="jquery.dropdownlistcheckbox.js"></script>
-	<script type="text/javascript">
+    <head>
+        <title>MultiSelect</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"/>
+        <script type="text/javascript" src="jquery.dropdownlistcheckbox.js"/>
+        <script type="text/javascript">
 
 		$(document).ready(function() {
 			$("#ddlcb").dropDownListCheckbox({
 				containerCls: "#ddlcb",
-				checkboxCls:'ddlcb-checkboxCase',
+				checkboxCls:'.ddlcb-checkboxCase',
 				arrowCls:'ddlcb-right'	
 			});
 			
@@ -19,33 +19,38 @@
 	            else {
 	                alert("You unselected all!");
 	            }
-	        });			
+	        });
+	        
+	        $("#ddlcb li").click(function () {
+	        	var $this = $(this);
+				if ($this.hasClass("ddlcb-checked")) {
+					alert("checked " + $this.attr("class"));
+				} else {
+					alert("unchecked " + $this.attr("class"));
+				}
+	        });	        
 		});
 
 	</script>
-	<style type="text/css">
+        <style type="text/css">
 		body {
 			background:#CCC;
 			margin:100px;
 		}
-		.clear {clear:both;}
-		ul {margin-top:30px!important;}
-		/* ul reset margin */
 	</style>
-	<link rel="stylesheet" type="text/css" href="jquery.dropdownlistcheckbox.css" />
-</head>
-<body>
-	<div id="ddlcb" class="ddlcb-checkboxContainer">
-		<div class="ddlcb-left">
-			<div class="ddlcb-checkboxCase"></div>
-		</div>
-		<div class="ddlcb-right"></div>
-		<ul>
-			<li class="all">Select all</li>
-			<li class="none">Select none</li>
-			<li class="read">Select class</li>
-		</ul>
-		<div class="clear"></div>
-	</div>
-</body>
+        <link rel="stylesheet" type="text/css" href="jquery.dropdownlistcheckbox.css"/>
+    </head>
+    <body>
+        <div id="ddlcb" class="ddlcb-checkboxContainer">
+            <div class="ddlcb-left">
+                <div class="ddlcb-checkboxCase"/>
+            </div>
+            <div class="ddlcb-right"/>
+            <ul>
+                <li class="ddlcb-all">Select all</li>
+                <li class="ddlcb-none">Select none</li>
+                <li class="ddlcb-class">Select class</li>
+            </ul>
+        </div>
+    </body>
 </html>
