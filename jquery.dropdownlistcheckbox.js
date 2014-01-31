@@ -30,6 +30,8 @@
 						}
 					}
 				});
+				
+		// add behaviour
 
 		$(opts.checkboxCls).click(function() {
 		    $(this).toggleClass("ddlcb-checked");
@@ -42,6 +44,8 @@
 		        $(opts.checkboxCls).toggleClass("ddlcb-checked");
 		    }
 		    $.fn.dropDownListCheckbox.toggleOption($this);
+		    // unselect shortcut for main option
+		    $(opts.checkboxCls).removeClass("ddlcb-checked");
 		});
 
 		return this;
