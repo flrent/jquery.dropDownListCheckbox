@@ -30,7 +30,7 @@
 	width: 100px;
 }
 
-.ddlcb-checkboxContainer li.ddlcb-checked {
+.ddlcb-checkboxContainer li.ddlcb-checked, .ddlcb-checkboxContainer li.ddlcb-checked:hover {
 	background: url('check-mark.png') center left no-repeat;
 }
 
