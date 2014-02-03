@@ -42,10 +42,11 @@
 		    var $this = $(this);
 		    if ($this.is(":first-child")) {
 		        $(opts.checkboxCls).toggleClass("ddlcb-checked");
+		    } else {
+    		    // unselect shortcut for main option
+    		    $(opts.checkboxCls).removeClass("ddlcb-checked");
 		    }
 		    $.fn.dropDownListCheckbox.toggleOption($this);
-		    // unselect shortcut for main option
-		    $(opts.checkboxCls).removeClass("ddlcb-checked");
 		});
 
 		return this;
