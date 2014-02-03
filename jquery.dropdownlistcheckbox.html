@@ -11,18 +11,21 @@
 				containerCls: "#ddlcb",
 				checkboxCls:'.ddlcb-checkboxCase',
 				arrowCls:'ddlcb-right',
-				mainOption: '.ddlcb-all'
+				mainOption: '.ddlcb-all',
+				mainOptionSelected: function() {
+				    $("#message").text("mainOptionSelected");
+				},
+				mainOptionUnselected: function() {
+				    $("#message").text("mainOptionUnselected");
+				},
+				otherOptionSelected: function($option) {
+				    $("#message").text("selected option " + $option.attr("class"));
+				},
+				otherOptionUnselected: function($option) {
+				    $("#message").text("unselected option " + $option.attr("class"));
+				},
 			});
 
-	       // $("#ddlcb div.ddlcb-checkboxCase").click(function () {
-	       //     if ($(this).hasClass("ddlcb-checked")) {
-	       //         alert("You selected all!");
-	       //     }
-	       //     else {
-	       //         alert("You unselected all!");
-	       //     }
-	       // });
-	        
 	   //     $("#ddlcb li").click(function () {
 	   //     	var $this = $(this);
 				// if ($this.hasClass("ddlcb-checked")) {
@@ -43,6 +46,10 @@
         <link rel="stylesheet" type="text/css" href="jquery.dropdownlistcheckbox.css"/>
     </head>
     <body>
+        <div id="message-container">
+            <label id="message-label" for="message">Messages from the dropdown list checkbox component: </label>
+            <div id="message"/>
+        </div>
         <div id="ddlcb" class="ddlcb-checkboxContainer">
             <div class="ddlcb-left">
                 <div class="ddlcb-checkboxCase"/>

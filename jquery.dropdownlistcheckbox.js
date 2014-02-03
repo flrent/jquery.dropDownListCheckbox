@@ -6,7 +6,11 @@
 			containerCls : 'cccccc',
 			checkboxCls : '.ddlcb-checkboxCase',
 			arrowCls : 'ddlcb-right',
-			mainOption: '.ddlcb-all'
+			mainOption: '.ddlcb-all',
+			mainOptionSelected: {},
+			mainOptionUnselected: {},
+			otherOptionSelected: {},
+			otherOptionUnselected: {}			
 		};
 
 		$(opts.containerCls).click(
@@ -34,15 +38,31 @@
 		// add behaviour
 
 		$(opts.checkboxCls).click(function() {
-		    $(this).toggleClass("ddlcb-checked");
-		    $.fn.dropDownListCheckbox.toggleOption($(opts.containerCls + " li:first-child"));
+		    var $this = $(this);
+		    if ($this.hasClass("ddlcb-checked")) {
+		        opts.mainOptionUnselected();
+            } else {
+                opts.mainOptionSelected();
+            }
+		    $this.toggleClass("ddlcb-checked");
+		    $.fn.dropDownListCheckbox.toggleOption($(opts.containerCls + " li:first-child"));            
 		});
 
 		this.children("ul").children("li").click(function() {
 		    var $this = $(this);
 		    if ($this.is(":first-child")) {
 		        $(opts.checkboxCls).toggleClass("ddlcb-checked");
+    		    if ($this.hasClass("ddlcb-checked")) {
+    		        opts.mainOptionUnselected();
+                } else {
+                    opts.mainOptionSelected();
+                }		        
 		    } else {
+    		    if ($this.hasClass("ddlcb-checked")) {
+    		        opts.otherOptionUnselected($this);
+                } else {
+                    opts.otherOptionSelected($this);
+                }		        
     		    // unselect shortcut for main option
     		    $(opts.checkboxCls).removeClass("ddlcb-checked");
 		    }
