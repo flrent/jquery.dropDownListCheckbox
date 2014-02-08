@@ -48,7 +48,7 @@
 		    $.fn.dropDownListCheckbox.toggleOption($(opts.containerCls + " li:first-child"));            
 		});
 
-		this.children("ul").children("li").click(function() {
+		$("ul > li", this).click(function() {
 		    var $this = $(this);
 		    if ($this.is(":first-child")) {
 		        $(opts.checkboxCls).toggleClass("ddlcb-checked");
@@ -78,5 +78,9 @@
 		option.siblings().removeClass("ddlcb-checked");
 		option.toggleClass("ddlcb-checked");
 	};
+	
+	$.fn.dropDownListCheckbox.isMainOptionSelected = function() {
+	   return $("ul > li:first-child", $(this)).hasClass("ddlcb-checked");
+	};	
 
 })(jQuery);
