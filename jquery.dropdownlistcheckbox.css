@@ -30,7 +30,7 @@
 	width: 100px;
 }
 
-.ddlcb-checkboxContainer li.ddlcb-checked, .ddlcb-checkboxContainer li.ddlcb-checked:hover {
+.ddlcb-checkboxContainer li.ddlcb-full-checked, .ddlcb-checkboxContainer li.ddlcb-full-checked:hover {
 	background: url('check-mark.png') center left no-repeat;
 }
 
@@ -54,7 +54,7 @@
 	margin-top: 7px;
 }
 
-.ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-checked {
+.ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-full-checked {
 	background: url('check-mark.png') no-repeat center center;
 }
 

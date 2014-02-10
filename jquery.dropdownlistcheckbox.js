@@ -39,32 +39,32 @@
 
 		$(opts.checkboxCls).click(function() {
 		    var $this = $(this);
-		    if ($this.hasClass("ddlcb-checked")) {
+		    if ($this.hasClass("ddlcb-full-checked")) {
 		        opts.mainOptionUnselected();
             } else {
                 opts.mainOptionSelected();
             }
-		    $this.toggleClass("ddlcb-checked");
+		    $this.toggleClass("ddlcb-full-checked");
 		    $.fn.dropDownListCheckbox.toggleOption($(opts.containerCls + " li:first-child"));            
 		});
 
 		$("ul > li", this).click(function() {
 		    var $this = $(this);
 		    if ($this.is(":first-child")) {
-		        $(opts.checkboxCls).toggleClass("ddlcb-checked");
-    		    if ($this.hasClass("ddlcb-checked")) {
+		        $(opts.checkboxCls).toggleClass("ddlcb-full-checked");
+    		    if ($this.hasClass("ddlcb-full-checked")) {
     		        opts.mainOptionUnselected();
                 } else {
                     opts.mainOptionSelected();
                 }		        
 		    } else {
-    		    if ($this.hasClass("ddlcb-checked")) {
+    		    if ($this.hasClass("ddlcb-full-checked")) {
     		        opts.otherOptionUnselected($this);
                 } else {
                     opts.otherOptionSelected($this);
                 }		        
     		    // unselect shortcut for main option
-    		    $(opts.checkboxCls).removeClass("ddlcb-checked");
+    		    $(opts.checkboxCls).removeClass("ddlcb-full-checked");
 		    }
 		    $.fn.dropDownListCheckbox.toggleOption($this);
 		});
@@ -75,12 +75,12 @@
 	$.fn.dropDownListCheckbox.toggleOption = function(option) {
 		option.parent("ul").hide();
 		$("html").unbind("click");
-		option.siblings().removeClass("ddlcb-checked");
-		option.toggleClass("ddlcb-checked");
+		option.siblings().removeClass("ddlcb-full-checked");
+		option.toggleClass("ddlcb-full-checked");
 	};
 	
 	$.fn.dropDownListCheckbox.isMainOptionSelected = function() {
-	   return $("ul > li:first-child", $(this)).hasClass("ddlcb-checked");
+	   return $("ul > li:first-child", $(this)).hasClass("ddlcb-full-checked");
 	};	
 
 })(jQuery);
