@@ -42,6 +42,7 @@
 		    if ($this.hasClass("ddlcb-full-checked")) {
 		        opts.mainOptionUnselected();
             } else {
+		        $(opts.checkboxCls).removeClass("ddlcb-partial-checked");                
                 opts.mainOptionSelected();
             }
 		    $this.toggleClass("ddlcb-full-checked");
@@ -52,19 +53,23 @@
 		    var $this = $(this);
 		    if ($this.is(":first-child")) {
 		        $(opts.checkboxCls).toggleClass("ddlcb-full-checked");
-    		    if ($this.hasClass("ddlcb-full-checked")) {
+		        $(opts.checkboxCls).removeClass("ddlcb-partial-checked");
+    		    if ($this.hasClass("ddlcb-option-checked")) {
     		        opts.mainOptionUnselected();
                 } else {
                     opts.mainOptionSelected();
                 }		        
 		    } else {
-    		    if ($this.hasClass("ddlcb-full-checked")) {
+    		    if ($this.hasClass("ddlcb-option-checked")) {
+		            $(opts.checkboxCls).removeClass("ddlcb-partial-checked");
     		        opts.otherOptionUnselected($this);
                 } else {
+		            $(opts.checkboxCls).removeClass("ddlcb-full-checked");
+		            $(opts.checkboxCls).addClass("ddlcb-partial-checked");
                     opts.otherOptionSelected($this);
                 }		        
     		    // unselect shortcut for main option
-    		    $(opts.checkboxCls).removeClass("ddlcb-full-checked");
+    		    $(opts.checkboxCls).removeClass("ddlcb-option-checked");
 		    }
 		    $.fn.dropDownListCheckbox.toggleOption($this);
 		});
@@ -75,12 +80,12 @@
 	$.fn.dropDownListCheckbox.toggleOption = function(option) {
 		option.parent("ul").hide();
 		$("html").unbind("click");
-		option.siblings().removeClass("ddlcb-full-checked");
-		option.toggleClass("ddlcb-full-checked");
+		option.siblings().removeClass("ddlcb-option-checked");
+		option.toggleClass("ddlcb-option-checked");
 	};
 	
 	$.fn.dropDownListCheckbox.isMainOptionSelected = function() {
-	   return $("ul > li:first-child", $(this)).hasClass("ddlcb-full-checked");
+	   return $("ul > li:first-child", $(this)).hasClass("ddlcb-option-checked");
 	};	
 
 })(jQuery);

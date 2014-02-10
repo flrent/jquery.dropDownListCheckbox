@@ -30,7 +30,7 @@
 	width: 100px;
 }
 
-.ddlcb-checkboxContainer li.ddlcb-full-checked, .ddlcb-checkboxContainer li.ddlcb-full-checked:hover {
+.ddlcb-checkboxContainer li.ddlcb-option-checked, .ddlcb-checkboxContainer li.ddlcb-option-checked:hover {
 	background: url('check-mark.png') center left no-repeat;
 }
 
@@ -56,6 +56,10 @@
 
 .ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-full-checked {
 	background: url('check-mark.png') no-repeat center center;
+}
+
+.ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-partial-checked {
+	background: url('partial-check-mark.png') no-repeat center center;
 }
 
 .ddlcb-checkboxContainer div.ddlcb-left {
