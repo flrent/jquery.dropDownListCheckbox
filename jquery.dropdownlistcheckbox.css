@@ -78,6 +78,10 @@
 	margin-right: 5px;
 }
 
+.ddlcb-checkboxContainer div.ddlcb-status-message {
+    float: left;
+}
+
 #message-container {
     margin-bottom: 50px;
 }

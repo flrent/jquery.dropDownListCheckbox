@@ -7,7 +7,7 @@
         <script type="text/javascript">
 
 		$(document).ready(function() {
-			var ddlcb = $("#ddlcb").dropDownListCheckbox({
+			ddlcb = $("#ddlcb").dropDownListCheckbox({
 				containerCls: "#ddlcb",
 				checkboxCls:'.ddlcb-checkboxCase',
 				arrowCls:'ddlcb-right',
@@ -23,7 +23,8 @@
 				},
 				otherOptionUnselected: function($option) {
 				    $("#message").text("unselected option " + $option.attr("class"));
-				}
+				},
+				showComponentStatusMessage: true
 			});
 		});
 
@@ -39,13 +40,13 @@
     <body>
         <div id="message-container">
             <label id="message-label" for="message">Messages from the dropdown list checkbox component: </label>
-            <div id="message"/>
         </div>
         <div id="ddlcb" class="ddlcb-checkboxContainer">
             <div class="ddlcb-left">
                 <div class="ddlcb-checkboxCase"/>
             </div>
             <div class="ddlcb-right"/>
+            <div id="ddlcb-status-message"/>
             <ul>
                 <li class="ddlcb-all">Select all</li>
                 <li class="ddlcb-none">Select none</li>

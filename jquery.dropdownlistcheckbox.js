@@ -2,7 +2,7 @@
 
 	$.fn.dropDownListCheckbox = function(opts) {
 		var item = this;
-		var opts = opts || {
+        var opts = opts || {
 			containerCls : 'cccccc',
 			checkboxCls : '.ddlcb-checkboxCase',
 			arrowCls : 'ddlcb-right',
@@ -10,8 +10,12 @@
 			mainOptionSelected: {},
 			mainOptionUnselected: {},
 			otherOptionSelected: {},
-			otherOptionUnselected: {}			
+			otherOptionUnselected: {},
+			showComponentStatusMessage: true
 		};
+		
+		// set 'showComponentStatusMessage'
+		$.fn.dropDownListCheckbox.showComponentStatusMessage = opts.showComponentStatusMessage;
 
 		$(opts.containerCls).click(
 				function(event) {
@@ -56,21 +60,25 @@
 		        $(opts.checkboxCls).removeClass("ddlcb-partial-checked");
     		    if ($this.hasClass("ddlcb-option-checked")) {
     		        opts.mainOptionUnselected();
+    		        $.fn.dropDownListCheckbox._generateComponentStatusMessage();
                 } else {
                     opts.mainOptionSelected();
+                    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
                 }		        
 		    } else {
     		    if ($this.hasClass("ddlcb-option-checked")) {
 		            $(opts.checkboxCls).removeClass("ddlcb-partial-checked");
     		        opts.otherOptionUnselected($this);
+    		        $.fn.dropDownListCheckbox._generateComponentStatusMessage();
                 } else {
 		            $(opts.checkboxCls).removeClass("ddlcb-full-checked");
 		            $(opts.checkboxCls).addClass("ddlcb-partial-checked");
                     opts.otherOptionSelected($this);
+                    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
                 }		        
-    		    // unselect shortcut for main option
-    		    $(opts.checkboxCls).removeClass("ddlcb-option-checked");
-		    }
+                // unselect shortcut for main option
+                $(opts.checkboxCls).removeClass("ddlcb-option-checked");
+            }
 		    $.fn.dropDownListCheckbox.toggleOption($this);
 		});
 
@@ -85,7 +93,24 @@
 	};
 	
 	$.fn.dropDownListCheckbox.isMainOptionSelected = function() {
-	   return $("ul > li:first-child", $(this)).hasClass("ddlcb-option-checked");
-	};	
+        return $("ul > li:first-child", $(this)).hasClass("ddlcb-option-checked");
+	};
+	
+	$.fn.dropDownListCheckbox.maxNumberOfOptions = 0;
+	
+	$.fn.dropDownListCheckbox.showComponentStatusMessage = true;
+	
+	$.fn.dropDownListCheckbox.componentStatusMessageFormat = "$numberOfSelectedOptions record(s) selected";
+	
+	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];
+	
+	$.fn.dropDownListCheckbox.numberOfSelectedOptions = 0;
+	
+	$.fn.dropDownListCheckbox._generateComponentStatusMessage = function() {
+        if (!this.showComponentStatusMessage) {
+            return;
+        }
+        alert(this.componentStatusMessageFormat);
+	};
 
 })(jQuery);
