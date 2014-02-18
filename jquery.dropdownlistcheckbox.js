@@ -7,10 +7,10 @@
 			checkboxCls : '.ddlcb-checkboxCase',
 			arrowCls : 'ddlcb-right',
 			mainOption: '.ddlcb-all',
-			mainOptionSelected: {},
-			mainOptionUnselected: {},
-			otherOptionSelected: {},
-			otherOptionUnselected: {},
+			mainComponentOptionSelected: {},
+			mainComponentOptionUnselected: {},
+			otherComponentOptionSelected: {},
+			otherComponentOptionUnselected: {},
 			showComponentStatusMessage: true
 		};
 		
@@ -44,10 +44,10 @@
 		$(opts.checkboxCls).click(function() {
 		    var $this = $(this);
 		    if ($this.hasClass("ddlcb-full-checked")) {
-		        opts.mainOptionUnselected();
+		        opts.mainComponentOptionUnselected();
             } else {
 		        $(opts.checkboxCls).removeClass("ddlcb-partial-checked");                
-                opts.mainOptionSelected();
+                opts.mainComponentOptionSelected();
             }
 		    $this.toggleClass("ddlcb-full-checked");
 		    $.fn.dropDownListCheckbox.toggleOption($(opts.containerCls + " li:first-child"));            
@@ -59,21 +59,21 @@
 		        $(opts.checkboxCls).toggleClass("ddlcb-full-checked");
 		        $(opts.checkboxCls).removeClass("ddlcb-partial-checked");
     		    if ($this.hasClass("ddlcb-option-checked")) {
-    		        opts.mainOptionUnselected();
+    		        opts.mainComponentOptionUnselected();
     		        $.fn.dropDownListCheckbox._generateComponentStatusMessage();
                 } else {
-                    opts.mainOptionSelected();
+                    opts.mainComponentOptionSelected();
                     $.fn.dropDownListCheckbox._generateComponentStatusMessage();
                 }		        
 		    } else {
     		    if ($this.hasClass("ddlcb-option-checked")) {
 		            $(opts.checkboxCls).removeClass("ddlcb-partial-checked");
-    		        opts.otherOptionUnselected($this);
+    		        opts.otherComponentOptionUnselected($this);
     		        $.fn.dropDownListCheckbox._generateComponentStatusMessage();
                 } else {
 		            $(opts.checkboxCls).removeClass("ddlcb-full-checked");
 		            $(opts.checkboxCls).addClass("ddlcb-partial-checked");
-                    opts.otherOptionSelected($this);
+                    opts.otherComponentOptionSelected($this);
                     $.fn.dropDownListCheckbox._generateComponentStatusMessage();
                 }		        
                 // unselect shortcut for main option

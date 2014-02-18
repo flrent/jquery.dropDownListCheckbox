@@ -12,16 +12,16 @@
 				checkboxCls:'.ddlcb-checkboxCase',
 				arrowCls:'ddlcb-right',
 				mainOption: '.ddlcb-all',
-				mainOptionSelected: function() {
+				mainComponentOptionSelected: function() {
 				    $("#message").text("mainOptionSelected");
 				},
-				mainOptionUnselected: function() {
+				mainComponentOptionUnselected: function() {
 				    $("#message").text("mainOptionUnselected");
 				},
-				otherOptionSelected: function($option) {
+				otherComponentOptionSelected: function($option) {
 				    $("#message").text("selected option " + $option.attr("class"));
 				},
-				otherOptionUnselected: function($option) {
+				otherComponentOptionUnselected: function($option) {
 				    $("#message").text("unselected option " + $option.attr("class"));
 				},
 				showComponentStatusMessage: true
