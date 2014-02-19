@@ -15,10 +15,10 @@
 			componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
 		};
 		
-		this.test = "test";
-		
 		//$.fn.dropDownListCheckbox._generateComponentStatusMessage();
-		$.fn.dropDownListCheckbox._generateComponentStatusMessage();
+
+		//$.fn.dropDownListCheckbox._generateComponentStatusMessage();
+		//$.fn.dropDownListCheckbox._generateComponentStatusMessage();
 		
 		// set 'componentStatusMessage'
 		//$.fn.dropDownListCheckbox.componentStatusMessage = opts.componentStatusMessage;
@@ -144,6 +144,16 @@
 	
 	$.fn.dropDownListCheckbox.registerExternalOptionSelected = function(externalOptionIdentifier) {
         this.selectedOptionsIndex.push(externalOptionIdentifier);
-	};	
+	};
+	
+	$.fn.dropDownListCheckbox.init = function() {
+        this._generateComponentStatusMessage();
+        return this;
+	};
+	
+    $.fn.dropDownListCheckbox.defaultOptions = {
+        class: 'watermark',
+        text: 'Enter Text Here'
+    }	
 
 })(jQuery);

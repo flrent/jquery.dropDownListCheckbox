@@ -87,15 +87,3 @@
     text-align: left;
     top: -25px;
 }
-
-#message-container {
-    margin-bottom: 50px;
-}
-
-#message-container * {
-    display: inline;
-}
-
-#message {
-    color: green;
-}
