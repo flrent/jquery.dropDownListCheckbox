@@ -24,7 +24,8 @@
 				otherComponentOptionUnselected: function($option) {
 				    $("#message").text("unselected option " + $option.attr("class"));
 				},
-				showComponentStatusMessage: true
+				showComponentStatusMessage: true,
+				componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
 			});
 		});
 
@@ -46,7 +47,7 @@
                 <div class="ddlcb-checkboxCase"/>
             </div>
             <div class="ddlcb-right"/>
-            <div id="ddlcb-status-message"/>
+            <span id="ddlcb-status-message"/>
             <ul>
                 <li class="ddlcb-all">Select all</li>
                 <li class="ddlcb-none">Select none</li>

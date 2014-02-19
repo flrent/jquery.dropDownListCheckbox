@@ -2,7 +2,7 @@
 
 	$.fn.dropDownListCheckbox = function(opts) {
 		var item = this;
-        var opts = opts || {
+        opts = opts || {
 			containerCls : 'cccccc',
 			checkboxCls : '.ddlcb-checkboxCase',
 			arrowCls : 'ddlcb-right',
@@ -11,11 +11,20 @@
 			mainComponentOptionUnselected: {},
 			otherComponentOptionSelected: {},
 			otherComponentOptionUnselected: {},
-			showComponentStatusMessage: true
+			showComponentStatusMessage: true,
+			componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
 		};
 		
+		this.test = "test";
+		
+		//$.fn.dropDownListCheckbox._generateComponentStatusMessage();
+		$.fn.dropDownListCheckbox._generateComponentStatusMessage();
+		
+		// set 'componentStatusMessage'
+		//$.fn.dropDownListCheckbox.componentStatusMessage = opts.componentStatusMessage;
+		
 		// set 'showComponentStatusMessage'
-		$.fn.dropDownListCheckbox.showComponentStatusMessage = opts.showComponentStatusMessage;
+		//$.fn.dropDownListCheckbox.showComponentStatusMessage = opts.showComponentStatusMessage;
 
 		$(opts.containerCls).click(
 				function(event) {
@@ -100,7 +109,7 @@
 	
 	$.fn.dropDownListCheckbox.showComponentStatusMessage = true;
 	
-	$.fn.dropDownListCheckbox.componentStatusMessageFormat = "$numberOfSelectedOptions record(s) selected";
+	$.fn.dropDownListCheckbox.componentStatusMessage = "$numberOfSelectedOptions record(s) selected";
 	
 	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];
 	
@@ -110,7 +119,31 @@
         if (!this.showComponentStatusMessage) {
             return;
         }
-        alert(this.componentStatusMessageFormat);
+        var message = this._parseComponentStatusMessage();
+        $("#ddlcb-status-message", $(this)).text(message);
 	};
+	
+	$.fn.dropDownListCheckbox._parseComponentStatusMessage = function() {
+        var message = this.componentStatusMessage;
+        
+        var legalTokens = {
+            "$maxNumberOfOptions": function(component) {
+                return component.maxNumberOfOptions;
+            },
+            "$numberOfSelectedOptions": function(component) {
+                return component.numberOfSelectedOptions;
+            }
+        }
+
+        for (var legalToken in legalTokens) {
+            message = message.replace(new RegExp("\\" + legalToken, 'g'), legalTokens[legalToken](this));
+        }
+        
+        return message;
+	};
+	
+	$.fn.dropDownListCheckbox.registerExternalOptionSelected = function(externalOptionIdentifier) {
+        this.selectedOptionsIndex.push(externalOptionIdentifier);
+	};	
 
 })(jQuery);
