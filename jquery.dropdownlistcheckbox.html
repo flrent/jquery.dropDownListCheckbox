@@ -21,15 +21,13 @@
 				otherComponentOptionSelected: function($option) {
 				    $("#item-1").prop("checked", "checked");
 				    $("#item-2").prop("checked", "checked");
-				    ddlcb.dropDownListCheckbox.registerExternalOption("#item-1");
-				    ddlcb.dropDownListCheckbox.registerExternalOption("#item-2");
+				    ddlcb.dropDownListCheckbox.registerExternalOption(["#item-1", "#item-2"]);
 				    $("#message").text("Identifiers of the selected external options: " + ddlcb.dropDownListCheckbox.selectedOptionsIndex.toString());
 				},
 				otherComponentOptionUnselected: function($option) {
 				    $("#item-1").removeAttr("checked");
 				    $("#item-2").removeAttr("checked");
-				    ddlcb.dropDownListCheckbox.unregisterExternalOption("#item-1");
-				    ddlcb.dropDownListCheckbox.unregisterExternalOption("#item-2");
+				    ddlcb.dropDownListCheckbox.unregisterExternalOption(["#item-1", "#item-2"]);
 				    $("#message").text("Identifiers of the selected external options: " + ddlcb.dropDownListCheckbox.selectedOptionsIndex.toString());
 				},
 				showComponentStatusMessage: true,

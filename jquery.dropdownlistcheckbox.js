@@ -129,13 +129,18 @@
 	    this.maxNumberOfOptions = number;
 	};
 	
-	$.fn.dropDownListCheckbox.registerExternalOption = function(identifier) {
-	    this.selectedOptionsIndex.push(identifier);
+	$.fn.dropDownListCheckbox.registerExternalOption = function(identifiers) {
+	    var selectedOptionsIndex = this.selectedOptionsIndex;
+	    for (var i = 0; i < identifiers.length; i++) {
+	        selectedOptionsIndex.push(identifiers[i]);
+        }	    
 	};	
 	
-	$.fn.dropDownListCheckbox.unregisterExternalOption = function(identifier) {
+	$.fn.dropDownListCheckbox.unregisterExternalOption = function(identifiers) {
 	    var selectedOptionsIndex = this.selectedOptionsIndex;
-	    selectedOptionsIndex.splice(selectedOptionsIndex.indexOf(identifier), 1);
+	    for (var i = 0; i < identifiers.length; i++) {
+	        selectedOptionsIndex.splice(selectedOptionsIndex.indexOf(identifiers[i]), 1);
+        }
 	};	
 	
 	
