@@ -34,6 +34,18 @@
 				componentStatusMessage: "$numberOfSelectedOptions of $maxNumberOfOptions record(s) selected"
 			});
 			ddlcb.dropDownListCheckbox.setMaxNumberOfOptions(3);
+			
+            $("#list input").live("click", function (ev) {
+                //ev.preventDefault();
+                var $this = $(this);
+                if ($this.is(":checked")) {
+                    ddlcb.dropDownListCheckbox.registerExternalOption([$this.attr("id")]);
+                    $("#message").text("Identifiers of the selected external options: " + ddlcb.dropDownListCheckbox.selectedOptionsIndex.toString());
+                } else {
+                    ddlcb.dropDownListCheckbox.unregisterExternalOption([$this.attr("id")]);
+                    $("#message").text("Identifiers of the selected external options: " + ddlcb.dropDownListCheckbox.selectedOptionsIndex.toString());
+                }
+            });			
 		});
 
 	</script>
