@@ -1,37 +1,19 @@
 (function($) {
 
-	$.fn.dropDownListCheckbox = function(opts) {
-		var item = this;
-        opts = opts || {
-			containerCls : 'cccccc',
-			checkboxCls : '.ddlcb-checkboxCase',
-			arrowCls : 'ddlcb-right',
-			mainOption: '.ddlcb-all',
-			mainComponentOptionSelected: {},
-			mainComponentOptionUnselected: {},
-			otherComponentOptionSelected: {},
-			otherComponentOptionUnselected: {},
-			showComponentStatusMessage: true,
-			componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
-		};
+	$.fn.dropDownListCheckbox = function(parameters) {
+		var component = this;
+		var options = $.extend({}, $.fn.dropDownListCheckbox.defaultOptions, parameters);
 		
-		//$.fn.dropDownListCheckbox._generateComponentStatusMessage();
+		this.dropDownListCheckbox.numberOfSelectedOptions = 0;
+		
+		this.dropDownListCheckbox.componentStatusMessage = options.componentStatusMessage;
 
-		//$.fn.dropDownListCheckbox._generateComponentStatusMessage();
-		//$.fn.dropDownListCheckbox._generateComponentStatusMessage();
-		
-		// set 'componentStatusMessage'
-		//$.fn.dropDownListCheckbox.componentStatusMessage = opts.componentStatusMessage;
-		
-		// set 'showComponentStatusMessage'
-		//$.fn.dropDownListCheckbox.showComponentStatusMessage = opts.showComponentStatusMessage;
-
-		$(opts.containerCls).click(
+		$(options.containerCls).click(
 				function(event) {
 					event.stopPropagation();
 					var $tgt = $(event.target);
-					if ($tgt.hasClass(opts.containerCls)
-							|| $tgt.hasClass(opts.arrowCls)) {
+					if ($tgt.hasClass(options.containerCls)
+							|| $tgt.hasClass(options.arrowCls)) {
 						var menu = $(this).children("ul");
 						if (menu.is(':visible')) {
 							menu.hide();
@@ -40,7 +22,7 @@
 							menu.show();
 
 							$('html').bind("click", function(event) {
-								$(opts.containerCls).children("ul").hide();
+								$(options.containerCls).children("ul").hide();
 								console.log("Clic on html" + event.timeStamp);
 								$("html").unbind("click");
 							});
@@ -50,48 +32,95 @@
 				
 		// add behaviour
 
-		$(opts.checkboxCls).click(function() {
+		$(options.checkboxCls).click(function() {
 		    var $this = $(this);
 		    if ($this.hasClass("ddlcb-full-checked")) {
-		        opts.mainComponentOptionUnselected();
+		        options.mainComponentOptionUnselected();
+		        $.fn.dropDownListCheckbox._setNumberOfSelectedOption(0);
             } else {
-		        $(opts.checkboxCls).removeClass("ddlcb-partial-checked");                
-                opts.mainComponentOptionSelected();
+                options.mainComponentOptionSelected();
+		        $(options.checkboxCls).removeClass("ddlcb-partial-checked");
+		        $.fn.dropDownListCheckbox._setNumberOfSelectedOption($.fn.dropDownListCheckbox.maxNumberOfOptions);
             }
 		    $this.toggleClass("ddlcb-full-checked");
-		    $.fn.dropDownListCheckbox.toggleOption($(opts.containerCls + " li:first-child"));            
+		    $.fn.dropDownListCheckbox.toggleOption($(options.containerCls + " li:first-child"));
+		    _generateComponentStatusMessage(component.dropDownListCheckbox);
 		});
 
 		$("ul > li", this).click(function() {
 		    var $this = $(this);
 		    if ($this.is(":first-child")) {
-		        $(opts.checkboxCls).toggleClass("ddlcb-full-checked");
-		        $(opts.checkboxCls).removeClass("ddlcb-partial-checked");
+		        $(options.checkboxCls).toggleClass("ddlcb-full-checked");
+		        $(options.checkboxCls).removeClass("ddlcb-partial-checked");
     		    if ($this.hasClass("ddlcb-option-checked")) {
-    		        opts.mainComponentOptionUnselected();
-    		        $.fn.dropDownListCheckbox._generateComponentStatusMessage();
+    		        options.mainComponentOptionUnselected();
+    		        $.fn.dropDownListCheckbox._setNumberOfSelectedOption(0);
                 } else {
-                    opts.mainComponentOptionSelected();
-                    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
+                    options.mainComponentOptionSelected();
+                    $.fn.dropDownListCheckbox._setNumberOfSelectedOption($.fn.dropDownListCheckbox.maxNumberOfOptions);
                 }		        
 		    } else {
     		    if ($this.hasClass("ddlcb-option-checked")) {
-		            $(opts.checkboxCls).removeClass("ddlcb-partial-checked");
-    		        opts.otherComponentOptionUnselected($this);
-    		        $.fn.dropDownListCheckbox._generateComponentStatusMessage();
+		            $(options.checkboxCls).removeClass("ddlcb-partial-checked");
+    		        options.otherComponentOptionUnselected($this);
                 } else {
-		            $(opts.checkboxCls).removeClass("ddlcb-full-checked");
-		            $(opts.checkboxCls).addClass("ddlcb-partial-checked");
-                    opts.otherComponentOptionSelected($this);
-                    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
+		            $(options.checkboxCls).removeClass("ddlcb-full-checked");
+		            $(options.checkboxCls).addClass("ddlcb-partial-checked");
+                    options.otherComponentOptionSelected($this);
                 }		        
                 // unselect shortcut for main option
-                $(opts.checkboxCls).removeClass("ddlcb-option-checked");
+                $(options.checkboxCls).removeClass("ddlcb-option-checked");
             }
 		    $.fn.dropDownListCheckbox.toggleOption($this);
+		    _generateComponentStatusMessage(component.dropDownListCheckbox);
 		});
+		
+    	_generateComponentStatusMessage = function(component) {
+    	   // for (prop in component) {
+    	   //     alert(prop + " " + component[prop])
+    	   // }
+            if (!options.showComponentStatusMessage) {
+                return;
+            }
+            var message = component._parseComponentStatusMessage(component);
+            $("#ddlcb-status-message", $(component)).text(message);
+    	};
+    	
+    	_parseComponentStatusMessage = function(component) {
+            var message = options.componentStatusMessage;
+            
+            var legalTokens = {
+                "$maxNumberOfOptions": function(component) {
+                    return component.maxNumberOfOptions;
+                },
+                "$numberOfSelectedOptions": function(component) {
+                    return component.numberOfSelectedOptions;
+                }
+            }
+    
+            for (var legalToken in legalTokens) {
+                message = message.replace(new RegExp("\\" + legalToken, 'g'), legalTokens[legalToken](this));
+            }
+    
+            return message;
+    	};
+    	
+    	_generateComponentStatusMessage(this.dropDownListCheckbox);
 
 		return this;
+	};
+	
+	$.fn.dropDownListCheckbox.setMaxNumberOfOptions = function(number) {
+	    this.maxNumberOfOptions = number;
+	};
+	
+	
+	
+	
+	
+	
+	$.fn.dropDownListCheckbox._setNumberOfSelectedOption = function(number) {
+	    this.numberOfSelectedOptions = number;
 	};
 	
 	$.fn.dropDownListCheckbox.toggleOption = function(option) {
@@ -106,11 +135,7 @@
 	};
 	
 	$.fn.dropDownListCheckbox.maxNumberOfOptions = 0;
-	
-	$.fn.dropDownListCheckbox.showComponentStatusMessage = true;
-	
-	$.fn.dropDownListCheckbox.componentStatusMessage = "$numberOfSelectedOptions record(s) selected";
-	
+
 	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];
 	
 	$.fn.dropDownListCheckbox.numberOfSelectedOptions = 0;
@@ -138,7 +163,7 @@
         for (var legalToken in legalTokens) {
             message = message.replace(new RegExp("\\" + legalToken, 'g'), legalTokens[legalToken](this));
         }
-        
+
         return message;
 	};
 	
@@ -152,8 +177,16 @@
 	};
 	
     $.fn.dropDownListCheckbox.defaultOptions = {
-        class: 'watermark',
-        text: 'Enter Text Here'
+        containerCls : 'cccccc',
+        checkboxCls : '.ddlcb-checkboxCase',
+        arrowCls : 'ddlcb-right',
+        mainOption: '.ddlcb-all',
+        mainComponentOptionSelected: {},
+        mainComponentOptionUnselected: {},
+        otherComponentOptionSelected: {},
+        otherComponentOptionUnselected: {},
+        showComponentStatusMessage: true,
+        componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
     }	
 
 })(jQuery);

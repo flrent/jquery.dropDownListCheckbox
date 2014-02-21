@@ -13,10 +13,10 @@
 				arrowCls:'ddlcb-right',
 				mainOption: '.ddlcb-all',
 				mainComponentOptionSelected: function() {
-				    $("#message").text("mainOptionSelected");
+				    $("input[type = 'checkbox']").prop("checked", "checked");
 				},
 				mainComponentOptionUnselected: function() {
-				    $("#message").text("mainOptionUnselected");
+				    $("input[type = 'checkbox']").removeAttr("checked");
 				},
 				otherComponentOptionSelected: function($option) {
 				    $("#message").text("selected option " + $option.attr("class"));
@@ -25,9 +25,10 @@
 				    $("#message").text("unselected option " + $option.attr("class"));
 				},
 				showComponentStatusMessage: true,
-				componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
+				componentStatusMessage: "$numberOfSelectedOptions of $maxNumberOfOptions record(s) selected"
 			});
-			ddlcb.dropDownListCheckbox.init();
+			ddlcb.dropDownListCheckbox.setMaxNumberOfOptions(3);
+			//ddlcb.dropDownListCheckbox.init();			
 		});
 
 	</script>
