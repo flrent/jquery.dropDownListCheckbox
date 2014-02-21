@@ -34,7 +34,7 @@
 
 		$(options.checkboxCls).click(function() {
 		    var $this = $(this);
-		    if ($this.hasClass("ddlcb-full-checked")) {
+		    if ($this.hasClass("ddlcb-full-checked") || $this.hasClass("ddlcb-partial-checked")) {
 		        options.mainComponentOptionUnselected();
 		        $.fn.dropDownListCheckbox._setNumberOfSelectedOption(0);
             } else {
@@ -110,9 +110,33 @@
 		return this;
 	};
 	
+    $.fn.dropDownListCheckbox.defaultOptions = {
+        containerCls : 'cccccc',
+        checkboxCls : '.ddlcb-checkboxCase',
+        arrowCls : 'ddlcb-right',
+        mainOption: '.ddlcb-all',
+        mainComponentOptionSelected: {},
+        mainComponentOptionUnselected: {},
+        otherComponentOptionSelected: {},
+        otherComponentOptionUnselected: {},
+        showComponentStatusMessage: true,
+        componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
+    };	
+	
+	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];	
+	
 	$.fn.dropDownListCheckbox.setMaxNumberOfOptions = function(number) {
 	    this.maxNumberOfOptions = number;
 	};
+	
+	$.fn.dropDownListCheckbox.registerExternalOption = function(identifier) {
+	    this.selectedOptionsIndex.push(identifier);
+	};	
+	
+	$.fn.dropDownListCheckbox.unregisterExternalOption = function(identifier) {
+	    var selectedOptionsIndex = this.selectedOptionsIndex;
+	    selectedOptionsIndex.splice(selectedOptionsIndex.indexOf(identifier), 1);
+	};	
 	
 	
 	
@@ -135,8 +159,6 @@
 	};
 	
 	$.fn.dropDownListCheckbox.maxNumberOfOptions = 0;
-
-	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];
 	
 	$.fn.dropDownListCheckbox.numberOfSelectedOptions = 0;
 	
@@ -166,27 +188,10 @@
 
         return message;
 	};
-	
-	$.fn.dropDownListCheckbox.registerExternalOptionSelected = function(externalOptionIdentifier) {
-        this.selectedOptionsIndex.push(externalOptionIdentifier);
-	};
-	
+
 	$.fn.dropDownListCheckbox.init = function() {
         this._generateComponentStatusMessage();
         return this;
 	};
-	
-    $.fn.dropDownListCheckbox.defaultOptions = {
-        containerCls : 'cccccc',
-        checkboxCls : '.ddlcb-checkboxCase',
-        arrowCls : 'ddlcb-right',
-        mainOption: '.ddlcb-all',
-        mainComponentOptionSelected: {},
-        mainComponentOptionUnselected: {},
-        otherComponentOptionSelected: {},
-        otherComponentOptionUnselected: {},
-        showComponentStatusMessage: true,
-        componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
-    }	
 
 })(jQuery);
