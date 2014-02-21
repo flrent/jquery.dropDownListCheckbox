@@ -19,16 +19,17 @@
 				    $("input[type = 'checkbox']").removeAttr("checked");
 				},
 				otherComponentOptionSelected: function($option) {
-				    $("#message").text("selected option " + $option.attr("class"));
+				    $("#item-1").prop("checked", "checked");
+				    $("#item-2").prop("checked", "checked");
 				},
 				otherComponentOptionUnselected: function($option) {
-				    $("#message").text("unselected option " + $option.attr("class"));
+				    $("#item-1").removeAttr("checked");
+				    $("#item-2").removeAttr("checked");
 				},
 				showComponentStatusMessage: true,
 				componentStatusMessage: "$numberOfSelectedOptions of $maxNumberOfOptions record(s) selected"
 			});
 			ddlcb.dropDownListCheckbox.setMaxNumberOfOptions(3);
-			//ddlcb.dropDownListCheckbox.init();			
 		});
 
 	</script>
@@ -50,8 +51,7 @@
             <span id="ddlcb-status-message"/>
             <ul>
                 <li class="ddlcb-all">Select all</li>
-                <li class="ddlcb-none">Select none</li>
-                <li class="ddlcb-class">Select class</li>
+                <li class="ddlcb-page">Select page</li>
             </ul>
         </div>
         <br/>
@@ -61,5 +61,6 @@
             <input id="item-2" type="checkbox" name="animal" value="Dogs"/>Dogs<br/>
             <input id="item-3" type="checkbox" name="animal" value="Birds"/>Birds<br/>
         </div>
+        <div id="message"/>
     </body>
 </html>
