@@ -3,10 +3,6 @@
 	$.fn.dropDownListCheckbox = function(parameters) {
 		var component = this;
 		var options = $.extend({}, $.fn.dropDownListCheckbox.defaultOptions, parameters);
-		
-		this.dropDownListCheckbox.numberOfSelectedOptions = 0;
-		
-		this.dropDownListCheckbox.componentStatusMessage = options.componentStatusMessage;
 
 		$(options.containerCls).click(
 				function(event) {
@@ -36,11 +32,11 @@
 		    var $this = $(this);
 		    if ($this.hasClass("ddlcb-full-checked") || $this.hasClass("ddlcb-partial-checked")) {
 		        options.mainComponentOptionUnselected();
-		        $.fn.dropDownListCheckbox._setNumberOfSelectedOption(0);
+		        $.fn.dropDownListCheckbox._setNumberOfSelectedOptions(0);
             } else {
                 options.mainComponentOptionSelected();
 		        $(options.checkboxCls).removeClass("ddlcb-partial-checked");
-		        $.fn.dropDownListCheckbox._setNumberOfSelectedOption($.fn.dropDownListCheckbox.maxNumberOfOptions);
+		        $.fn.dropDownListCheckbox._setNumberOfSelectedOptions($.fn.dropDownListCheckbox.maxNumberOfOptions);
             }
 		    $this.toggleClass("ddlcb-full-checked");
 		    $.fn.dropDownListCheckbox.toggleOption($(options.containerCls + " li:first-child"));
@@ -54,10 +50,10 @@
 		        $(options.checkboxCls).removeClass("ddlcb-partial-checked");
     		    if ($this.hasClass("ddlcb-option-checked")) {
     		        options.mainComponentOptionUnselected();
-    		        $.fn.dropDownListCheckbox._setNumberOfSelectedOption(0);
+    		        $.fn.dropDownListCheckbox._setNumberOfSelectedOptions(0);
                 } else {
                     options.mainComponentOptionSelected();
-                    $.fn.dropDownListCheckbox._setNumberOfSelectedOption($.fn.dropDownListCheckbox.maxNumberOfOptions);
+                    $.fn.dropDownListCheckbox._setNumberOfSelectedOptions($.fn.dropDownListCheckbox.maxNumberOfOptions);
                 }		        
 		    } else {
     		    if ($this.hasClass("ddlcb-option-checked")) {
@@ -75,37 +71,15 @@
 		    _generateComponentStatusMessage(component.dropDownListCheckbox);
 		});
 		
-    	_generateComponentStatusMessage = function(component) {
-    	   // for (prop in component) {
-    	   //     alert(prop + " " + component[prop])
-    	   // }
-            if (!options.showComponentStatusMessage) {
-                return;
-            }
-            var message = component._parseComponentStatusMessage(component);
-            $("#ddlcb-status-message", $(component)).text(message);
-    	};
+    	_getNumberOfSelectedOptions = function() {
+            return $.fn.dropDownListCheckbox.selectedOptionsIndex.length;
+    	};    	
     	
-    	_parseComponentStatusMessage = function(component) {
-            var message = options.componentStatusMessage;
-            
-            var legalTokens = {
-                "$maxNumberOfOptions": function(component) {
-                    return component.maxNumberOfOptions;
-                },
-                "$numberOfSelectedOptions": function(component) {
-                    return component.numberOfSelectedOptions;
-                }
-            }
-    
-            for (var legalToken in legalTokens) {
-                message = message.replace(new RegExp("\\" + legalToken, 'g'), legalTokens[legalToken](this));
-            }
-    
-            return message;
-    	};
+    	$.fn.dropDownListCheckbox._generateComponentStatusMessage(this.dropDownListCheckbox);
     	
-    	_generateComponentStatusMessage(this.dropDownListCheckbox);
+    	$.fn.dropDownListCheckbox._showComponentStatusMessage = options.showComponentStatusMessage;
+    	
+    	$.fn.dropDownListCheckbox.componentStatusMessage = options.componentStatusMessage;
 
 		return this;
 	};
@@ -121,13 +95,64 @@
         otherComponentOptionUnselected: {},
         showComponentStatusMessage: true,
         componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
-    };	
+    };
+    
+    $.fn.dropDownListCheckbox._showComponentStatusMessage = true;
+    
+    $.fn.dropDownListCheckbox.componentStatusMessage = "";
 	
-	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];	
+	$.fn.dropDownListCheckbox.init = function() {
+        this._generateComponentStatusMessage();
+        return this;
+	};
+	
+	$.fn.dropDownListCheckbox._generateComponentStatusMessage = function(component) {
+        if (!this._showComponentStatusMessage) {
+            return;
+        }
+        var message = this._parseComponentStatusMessage(component);
+        $("#ddlcb-status-message", $(component)).text(message);
+	};
+    	
+	$.fn.dropDownListCheckbox._parseComponentStatusMessage = function(component) {
+	    var customMessage =this.componentStatusMessage;
+        var message = (customMessage != "") ? customMessage: this.defaultOptions.componentStatusMessage;
+        
+        var legalTokens = {
+            "$maxNumberOfOptions": function(component) {
+                return component.maxNumberOfOptions;
+            },
+            "$numberOfSelectedOptions": function(component) {
+                return _getNumberOfSelectedOptions();
+            }
+        }
+    
+        for (var legalToken in legalTokens) {
+            message = message.replace(new RegExp("\\" + legalToken, 'g'), legalTokens[legalToken](this));
+        }
+    
+        return message;
+	};
 	
 	$.fn.dropDownListCheckbox.setMaxNumberOfOptions = function(number) {
+    	    for (prop in this.dropDownListCheckbox) {
+    	        alert(prop + " " + this.dropDownListCheckbox[prop])
+    	    }	    
 	    this.maxNumberOfOptions = number;
+	    this._generateComponentStatusMessage(this);
+	    
+	    return this;
 	};
+	
+	$.fn.dropDownListCheckbox._setNumberOfSelectedOptions = function(number) {
+	    this.numberOfSelectedOptions = number;
+	};	
+	
+	
+	
+	
+	
+	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];	
 	
 	$.fn.dropDownListCheckbox.registerExternalOption = function(identifiers) {
 	    var selectedOptionsIndex = this.selectedOptionsIndex;
@@ -148,10 +173,6 @@
 	
 	
 	
-	$.fn.dropDownListCheckbox._setNumberOfSelectedOption = function(number) {
-	    this.numberOfSelectedOptions = number;
-	};
-	
 	$.fn.dropDownListCheckbox.toggleOption = function(option) {
 		option.parent("ul").hide();
 		$("html").unbind("click");
@@ -164,39 +185,5 @@
 	};
 	
 	$.fn.dropDownListCheckbox.maxNumberOfOptions = 0;
-	
-	$.fn.dropDownListCheckbox.numberOfSelectedOptions = 0;
-	
-	$.fn.dropDownListCheckbox._generateComponentStatusMessage = function() {
-        if (!this.showComponentStatusMessage) {
-            return;
-        }
-        var message = this._parseComponentStatusMessage();
-        $("#ddlcb-status-message", $(this)).text(message);
-	};
-	
-	$.fn.dropDownListCheckbox._parseComponentStatusMessage = function() {
-        var message = this.componentStatusMessage;
-        
-        var legalTokens = {
-            "$maxNumberOfOptions": function(component) {
-                return component.maxNumberOfOptions;
-            },
-            "$numberOfSelectedOptions": function(component) {
-                return component.numberOfSelectedOptions;
-            }
-        }
-
-        for (var legalToken in legalTokens) {
-            message = message.replace(new RegExp("\\" + legalToken, 'g'), legalTokens[legalToken](this));
-        }
-
-        return message;
-	};
-
-	$.fn.dropDownListCheckbox.init = function() {
-        this._generateComponentStatusMessage();
-        return this;
-	};
 
 })(jQuery);

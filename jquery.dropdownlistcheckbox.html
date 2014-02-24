@@ -21,29 +21,28 @@
 				otherComponentOptionSelected: function($option) {
 				    $("#item-1").prop("checked", "checked");
 				    $("#item-2").prop("checked", "checked");
-				    ddlcb.dropDownListCheckbox.registerExternalOption(["#item-1", "#item-2"]);
-				    $("#message").text("Identifiers of the selected external options: " + ddlcb.dropDownListCheckbox.selectedOptionsIndex.toString());
+				    ddlcb.registerExternalOption(["#item-1", "#item-2"]);
+				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
 				},
 				otherComponentOptionUnselected: function($option) {
 				    $("#item-1").removeAttr("checked");
 				    $("#item-2").removeAttr("checked");
-				    ddlcb.dropDownListCheckbox.unregisterExternalOption(["#item-1", "#item-2"]);
-				    $("#message").text("Identifiers of the selected external options: " + ddlcb.dropDownListCheckbox.selectedOptionsIndex.toString());
+				    ddlcb.unregisterExternalOption(["#item-1", "#item-2"]);
+				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
 				},
 				showComponentStatusMessage: true,
 				componentStatusMessage: "$numberOfSelectedOptions of $maxNumberOfOptions record(s) selected"
-			});
-			ddlcb.dropDownListCheckbox.setMaxNumberOfOptions(3);
+			}).dropDownListCheckbox.setMaxNumberOfOptions(3);
 			
             $("#list input").live("click", function (ev) {
                 //ev.preventDefault();
                 var $this = $(this);
                 if ($this.is(":checked")) {
-                    ddlcb.dropDownListCheckbox.registerExternalOption([$this.attr("id")]);
-                    $("#message").text("Identifiers of the selected external options: " + ddlcb.dropDownListCheckbox.selectedOptionsIndex.toString());
+                    ddlcb.registerExternalOption([$this.attr("id")]);
+                    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
                 } else {
-                    ddlcb.dropDownListCheckbox.unregisterExternalOption([$this.attr("id")]);
-                    $("#message").text("Identifiers of the selected external options: " + ddlcb.dropDownListCheckbox.selectedOptionsIndex.toString());
+                    ddlcb.unregisterExternalOption([$this.attr("id")]);
+                    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
                 }
             });			
 		});
