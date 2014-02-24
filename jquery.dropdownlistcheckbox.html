@@ -19,14 +19,12 @@
 				    $("input[type = 'checkbox']").removeAttr("checked");
 				},
 				otherComponentOptionSelected: function($option) {
-				    $("#item-1").prop("checked", "checked");
-				    $("#item-2").prop("checked", "checked");
+				    $("#item-1, #item-2").prop("checked", "checked");
 				    ddlcb.registerExternalOption(["#item-1", "#item-2"]);
 				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
 				},
 				otherComponentOptionUnselected: function($option) {
-				    $("#item-1").removeAttr("checked");
-				    $("#item-2").removeAttr("checked");
+				    $("#item-1, #item-2").removeAttr("checked");
 				    ddlcb.unregisterExternalOption(["#item-1", "#item-2"]);
 				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
 				},

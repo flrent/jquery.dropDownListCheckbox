@@ -40,7 +40,7 @@
             }
 		    $this.toggleClass("ddlcb-full-checked");
 		    $.fn.dropDownListCheckbox.toggleOption($(options.containerCls + " li:first-child"));
-		    _generateComponentStatusMessage(component.dropDownListCheckbox);
+		    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
 		});
 
 		$("ul > li", this).click(function() {
@@ -68,13 +68,9 @@
                 $(options.checkboxCls).removeClass("ddlcb-option-checked");
             }
 		    $.fn.dropDownListCheckbox.toggleOption($this);
-		    _generateComponentStatusMessage(component.dropDownListCheckbox);
+		    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
 		});
 		
-    	_getNumberOfSelectedOptions = function() {
-            return $.fn.dropDownListCheckbox.selectedOptionsIndex.length;
-    	};    	
-    	
     	$.fn.dropDownListCheckbox._generateComponentStatusMessage(this.dropDownListCheckbox);
     	
     	$.fn.dropDownListCheckbox._showComponentStatusMessage = options.showComponentStatusMessage;
@@ -97,33 +93,24 @@
         componentStatusMessage: "$numberOfSelectedOptions record(s) selected"
     };
     
-    $.fn.dropDownListCheckbox._showComponentStatusMessage = true;
-    
-    $.fn.dropDownListCheckbox.componentStatusMessage = "";
-	
-	$.fn.dropDownListCheckbox.init = function() {
-        this._generateComponentStatusMessage();
-        return this;
-	};
-	
-	$.fn.dropDownListCheckbox._generateComponentStatusMessage = function(component) {
+	$.fn.dropDownListCheckbox._generateComponentStatusMessage = function() {
         if (!this._showComponentStatusMessage) {
             return;
         }
-        var message = this._parseComponentStatusMessage(component);
-        $("#ddlcb-status-message", $(component)).text(message);
+        var message = this._parseComponentStatusMessage();
+        $("#ddlcb-status-message").text(message);
 	};
     	
-	$.fn.dropDownListCheckbox._parseComponentStatusMessage = function(component) {
-	    var customMessage =this.componentStatusMessage;
+	$.fn.dropDownListCheckbox._parseComponentStatusMessage = function() {
+	    var customMessage = this.componentStatusMessage;
         var message = (customMessage != "") ? customMessage: this.defaultOptions.componentStatusMessage;
         
         var legalTokens = {
-            "$maxNumberOfOptions": function(component) {
-                return component.maxNumberOfOptions;
+            "$maxNumberOfOptions": function() {
+                return $.fn.dropDownListCheckbox.maxNumberOfOptions;
             },
-            "$numberOfSelectedOptions": function(component) {
-                return _getNumberOfSelectedOptions();
+            "$numberOfSelectedOptions": function() {
+                return $.fn.dropDownListCheckbox._getNumberOfSelectedOptions();
             }
         }
     
@@ -134,10 +121,14 @@
         return message;
 	};
 	
+    $.fn.dropDownListCheckbox._getNumberOfSelectedOptions = function() {
+        return $.fn.dropDownListCheckbox.selectedOptionsIndex.length;
+    }; 	
+	
 	$.fn.dropDownListCheckbox.setMaxNumberOfOptions = function(number) {
-    	    for (prop in this.dropDownListCheckbox) {
-    	        alert(prop + " " + this.dropDownListCheckbox[prop])
-    	    }	    
+    	   // for (prop in this.dropDownListCheckbox) {
+    	   //     alert(prop + " " + this.dropDownListCheckbox[prop])
+    	   // }	    
 	    this.maxNumberOfOptions = number;
 	    this._generateComponentStatusMessage(this);
 	    
@@ -147,6 +138,17 @@
 	$.fn.dropDownListCheckbox._setNumberOfSelectedOptions = function(number) {
 	    this.numberOfSelectedOptions = number;
 	};	
+	
+    $.fn.dropDownListCheckbox._showComponentStatusMessage = true;
+    
+    $.fn.dropDownListCheckbox.componentStatusMessage = "";
+	
+	$.fn.dropDownListCheckbox.init = function() {
+        this._generateComponentStatusMessage();
+        return this;
+	};
+	
+	
 	
 	
 	
