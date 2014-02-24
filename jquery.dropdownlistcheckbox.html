@@ -13,12 +13,27 @@
 				arrowCls:'ddlcb-right',
 				mainOption: '.ddlcb-all',
 				mainComponentOptionSelected: function() {
-				    $("input[type = 'checkbox']").prop("checked", "checked");
+				    $("input[type = 'checkbox']").prop("checked", "checked").each(
+				        function(index) {
+				            ddlcb.registerExternalOption([this.id]);
+				        }    
+				    );
+				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
 				},
 				mainComponentOptionUnselected: function() {
-				    $("input[type = 'checkbox']").removeAttr("checked");
+				    $("input[type = 'checkbox']").removeAttr("checked").each(
+				        function(index) {
+				            ddlcb.unregisterExternalOption([this.id]);
+				        }    
+				    );
+				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
 				},
 				otherComponentOptionSelected: function($option) {
+				    $("input[type = 'checkbox']").removeAttr("checked").each(
+				        function(index) {
+				            ddlcb.unregisterExternalOption([this.id]);
+				        }    
+				    );				    
 				    $("#item-1, #item-2").prop("checked", "checked");
 				    ddlcb.registerExternalOption(["#item-1", "#item-2"]);
 				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());

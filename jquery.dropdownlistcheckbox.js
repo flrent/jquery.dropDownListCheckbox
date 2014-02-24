@@ -31,12 +31,11 @@
 		$(options.checkboxCls).click(function() {
 		    var $this = $(this);
 		    if ($this.hasClass("ddlcb-full-checked") || $this.hasClass("ddlcb-partial-checked")) {
+		        $(options.checkboxCls).removeClass("ddlcb-partial-checked");
+		        $.fn.dropDownListCheckbox._resetSelectedOptions();
 		        options.mainComponentOptionUnselected();
-		        $.fn.dropDownListCheckbox._setNumberOfSelectedOptions(0);
             } else {
                 options.mainComponentOptionSelected();
-		        $(options.checkboxCls).removeClass("ddlcb-partial-checked");
-		        $.fn.dropDownListCheckbox._setNumberOfSelectedOptions($.fn.dropDownListCheckbox.maxNumberOfOptions);
             }
 		    $this.toggleClass("ddlcb-full-checked");
 		    _toggleOption($(options.containerCls + " li:first-child"));
@@ -49,11 +48,10 @@
 		        $(options.checkboxCls).toggleClass("ddlcb-full-checked");
 		        $(options.checkboxCls).removeClass("ddlcb-partial-checked");
     		    if ($this.hasClass("ddlcb-option-checked")) {
+    		        $.fn.dropDownListCheckbox._resetSelectedOptions();
     		        options.mainComponentOptionUnselected();
-    		        $.fn.dropDownListCheckbox._setNumberOfSelectedOptions(0);
                 } else {
                     options.mainComponentOptionSelected();
-                    $.fn.dropDownListCheckbox._setNumberOfSelectedOptions($.fn.dropDownListCheckbox.maxNumberOfOptions);
                 }		        
 		    } else {
     		    if ($this.hasClass("ddlcb-option-checked")) {
@@ -128,10 +126,27 @@
     
         return message;
 	};
-	
+
     $.fn.dropDownListCheckbox._getNumberOfSelectedOptions = function() {
         return $.fn.dropDownListCheckbox.selectedOptionsIndex.length;
-    }; 	
+    };
+    
+    $.fn.dropDownListCheckbox._resetSelectedOptions = function() {
+        $.fn.dropDownListCheckbox.selectedOptionsIndex = [];
+    };    
+	
+    $.fn.dropDownListCheckbox._showComponentStatusMessage = true;
+    
+    $.fn.dropDownListCheckbox.componentStatusMessage = "";
+    
+	$.fn.dropDownListCheckbox.maxNumberOfOptions = 0;
+	
+	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];
+	
+	$.fn.dropDownListCheckbox.init = function() {
+        this._generateComponentStatusMessage();
+        return this;
+	};
 	
 	$.fn.dropDownListCheckbox.setMaxNumberOfOptions = function(number) {
     	   // for (prop in this.dropDownListCheckbox) {
@@ -141,28 +156,12 @@
 	    this._generateComponentStatusMessage(this);
 	    
 	    return this;
-	};
-	
-	$.fn.dropDownListCheckbox._setNumberOfSelectedOptions = function(number) {
-	    this.numberOfSelectedOptions = number;
 	};	
 	
-    $.fn.dropDownListCheckbox._showComponentStatusMessage = true;
-    
-    $.fn.dropDownListCheckbox.componentStatusMessage = "";
-	
-	$.fn.dropDownListCheckbox.init = function() {
-        this._generateComponentStatusMessage();
-        return this;
-	};
 	
 	
 	
 	
-	
-	
-	
-	$.fn.dropDownListCheckbox.selectedOptionsIndex = [];	
 	
 	$.fn.dropDownListCheckbox.registerExternalOption = function(identifiers) {
 	    var selectedOptionsIndex = this.selectedOptionsIndex;
@@ -181,7 +180,5 @@
 	$.fn.dropDownListCheckbox.isMainOptionSelected = function() {
         return $("ul > li:first-child", $(this)).hasClass("ddlcb-option-checked");
 	};
-	
-	$.fn.dropDownListCheckbox.maxNumberOfOptions = 0;
 
 })(jQuery);
