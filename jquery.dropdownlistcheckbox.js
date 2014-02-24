@@ -39,7 +39,7 @@
 		        $.fn.dropDownListCheckbox._setNumberOfSelectedOptions($.fn.dropDownListCheckbox.maxNumberOfOptions);
             }
 		    $this.toggleClass("ddlcb-full-checked");
-		    $.fn.dropDownListCheckbox.toggleOption($(options.containerCls + " li:first-child"));
+		    _toggleOption($(options.containerCls + " li:first-child"));
 		    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
 		});
 
@@ -67,9 +67,17 @@
                 // unselect shortcut for main option
                 $(options.checkboxCls).removeClass("ddlcb-option-checked");
             }
-		    $.fn.dropDownListCheckbox.toggleOption($this);
+		    _toggleOption($this);
 		    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
 		});
+		
+	
+	    _toggleOption = function(option) {
+	        option.parent("ul").hide();
+	        $("html").unbind("click");
+	        option.siblings().removeClass("ddlcb-option-checked");
+	        option.toggleClass("ddlcb-option-checked");
+        };		
 		
     	$.fn.dropDownListCheckbox._generateComponentStatusMessage(this.dropDownListCheckbox);
     	
@@ -168,18 +176,6 @@
 	    for (var i = 0; i < identifiers.length; i++) {
 	        selectedOptionsIndex.splice(selectedOptionsIndex.indexOf(identifiers[i]), 1);
         }
-	};	
-	
-	
-	
-	
-	
-	
-	$.fn.dropDownListCheckbox.toggleOption = function(option) {
-		option.parent("ul").hide();
-		$("html").unbind("click");
-		option.siblings().removeClass("ddlcb-option-checked");
-		option.toggleClass("ddlcb-option-checked");
 	};
 	
 	$.fn.dropDownListCheckbox.isMainOptionSelected = function() {
