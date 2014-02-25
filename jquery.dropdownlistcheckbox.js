@@ -30,13 +30,20 @@
 
 		$(options.checkboxCls).click(function() {
 		    var $this = $(this);
-		    if ($this.hasClass("ddlcb-full-checked") || $this.hasClass("ddlcb-partial-checked")) {
+
+		    if ($this.attr("class") == "ddlcb-checkboxCase") {
+		        options.mainComponentOptionSelected();
+		    }
+		    if ($this.hasClass("ddlcb-checkboxCase") && $this.hasClass("ddlcb-full-checked")) {
+		        options.mainComponentOptionUnselected();
+		        $.fn.dropDownListCheckbox._resetSelectedOptions();		        
+		    }
+		    if ($this.hasClass("ddlcb-checkboxCase") && $this.hasClass("ddlcb-partial-checked")) {
 		        $(options.checkboxCls).removeClass("ddlcb-partial-checked");
 		        $.fn.dropDownListCheckbox._resetSelectedOptions();
-		        options.mainComponentOptionUnselected();
-            } else {
-                options.mainComponentOptionSelected();
-            }
+		        options.mainComponentOptionSelected();		        
+		    }		    
+		    
 		    $this.toggleClass("ddlcb-full-checked");
 		    _toggleOption($(options.containerCls + " li:first-child"));
 		    $.fn.dropDownListCheckbox._generateComponentStatusMessage();
