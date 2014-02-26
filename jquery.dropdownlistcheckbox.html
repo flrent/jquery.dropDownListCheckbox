@@ -9,11 +9,10 @@
 		$(document).ready(function() {
 			ddlcb = $("#ddlcb").dropDownListCheckbox({
 				containerCls: "#ddlcb",
-				checkboxCls:'.ddlcb-checkboxCase',
 				arrowCls:'ddlcb-right',
 				mainOption: '.ddlcb-all',
 				mainComponentOptionSelected: function() {
-				    $("input[type = 'checkbox']").prop("checked", "checked").each(
+				    $("input[type = 'checkbox']").attr("checked", "checked").each(
 				        function(index) {
 				            ddlcb.registerExternalOption([this.id]);
 				        }    
