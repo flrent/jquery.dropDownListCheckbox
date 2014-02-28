@@ -73,12 +73,12 @@
             }
 		    _toggleOption($this);
 		});
-		
-    	$.fn.dropDownListCheckbox._generateComponentStatusMessage(this.dropDownListCheckbox);
     	
     	$.fn.dropDownListCheckbox._showComponentStatusMessage = options.showComponentStatusMessage;
     	
     	$.fn.dropDownListCheckbox.componentStatusMessage = options.componentStatusMessage;
+    	
+    	$.fn.dropDownListCheckbox._generateComponentStatusMessage(this.dropDownListCheckbox);    	
 
 		return this;
 	};
