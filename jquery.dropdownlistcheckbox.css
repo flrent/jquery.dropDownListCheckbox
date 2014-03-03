@@ -31,7 +31,7 @@
 }
 
 .ddlcb-checkboxContainer li.ddlcb-option-checked, .ddlcb-checkboxContainer li.ddlcb-option-checked:hover {
-	background: url('check-mark.png') center left no-repeat;
+	background: url('resources/images/check-mark.png') center left no-repeat;
 }
 
 .ddlcb-checkboxContainer li:hover {
@@ -55,11 +55,11 @@
 }
 
 .ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-full-checked {
-	background: url('check-mark.png') no-repeat center center;
+	background: url('resources/images/check-mark.png') no-repeat center center;
 }
 
 .ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-partial-checked {
-	background: url('partial-check-mark.png') no-repeat center center;
+	background: url('resources/images/partial-check-mark.png') no-repeat center center;
 }
 
 .ddlcb-checkboxContainer div.ddlcb-left {
@@ -71,7 +71,7 @@
 .ddlcb-checkboxContainer div.ddlcb-right {
 	float: right;
 	height: 6px;
-	background: url('arrow_down.png') no-repeat center center;
+	background: url('resources/images/arrow_down.png') no-repeat center center;
 	width: 16px;
 	margin-top: 12px;
 	margin-top: 10px\9;
