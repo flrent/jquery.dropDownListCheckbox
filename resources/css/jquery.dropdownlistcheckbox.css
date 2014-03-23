@@ -1,0 +1,90 @@
+/* plugin specific */
+.ddlcb-checkboxContainer {
+	width: 48px;
+	background: white;
+	height: 30px;
+	border: 1px solid #F8F8F8;
+}
+
+.ddlcb-checkboxContainer:hover {
+	border: 1px solid #EEE;
+}
+
+.ddlcb-checkboxContainer ul {
+	margin-top: 30px !important;
+	display: none;
+	background: white;
+	list-style-type: none;
+	width: 120px;
+	margin: 0;
+	padding: 0;
+	clear: both;
+	border: 1px solid #F8F8F8;
+	cursor: pointer;
+	position: absolute;
+	margin-left: -1px;
+}
+
+.ddlcb-checkboxContainer li {
+	padding: 10px;
+	width: 100px;
+}
+
+.ddlcb-checkboxContainer li.ddlcb-option-checked, .ddlcb-checkboxContainer li.ddlcb-option-checked:hover {
+	background: url('../images/check-mark.png') center left no-repeat;
+}
+
+.ddlcb-checkboxContainer li:hover {
+	background: #EEE;
+}
+
+.ddlcb-checkboxContainer div {
+	display: inline;
+}
+
+.ddlcb-checkboxContainer div.ddlcb-checkboxCase {
+	color: #00f;
+	background: transparent;
+	height: 15px;
+	height: 10px\9;
+	border: 1px solid #CCC;
+	width: 15px;
+	display: block;
+	margin-left: 8px;
+	margin-top: 7px;
+}
+
+.ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-full-checked {
+	background: url('../images/check-mark.png') no-repeat center center;
+}
+
+.ddlcb-checkboxContainer div.ddlcb-checkboxCase.ddlcb-partial-checked {
+	background: url('../images/partial-check-mark.png') no-repeat center center;
+}
+
+.ddlcb-checkboxContainer div.ddlcb-left {
+	height: 33px;
+	background: transparent;
+	float: left;
+}
+
+.ddlcb-checkboxContainer div.ddlcb-right {
+	float: right;
+	height: 17px;
+	width: 16px;	
+	background: url('../images/arrow_down.png') no-repeat center center;
+	margin-top: 7px;
+	margin-top: 5px\4;
+	margin-right: 5px;
+	background-color: red;
+}
+
+.ddlcb-checkboxContainer span#ddlcb-status-message {
+    float: left;
+    height: 22px;
+    left: 60px;
+    min-width: 300px;
+    position: relative;
+    text-align: left;
+    top: -25px;
+}

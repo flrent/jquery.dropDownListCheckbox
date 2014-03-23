@@ -1,0 +1,28 @@
+<package xmlns="http://expath.org/ns/pkg" name="${package-name}" abbrev="${package-abbrev}" version="${project.version}"
+	spec="1.0">
+	<title>${package-title}</title>
+	<dependency package="http://exist-db.org/apps/shared" />
+	<dependency package="http://exist-db.org/apps/xsltforms" />
+	<author>Florent Lamoureux</author>	
+	<author id="cteodorescu">Claudius Teodorescu</author>
+	<website>${project.url}</website>
+	<license>GNU-LGPL</license>
+	<copyright>true</copyright>
+	<type>application</type>
+	<target>shared-resources/resources/scripts/jquery/dropDownListCheckbox/${project.version}</target>
+	<status>stable</status>
+	<tag>dropDownListCheckbox</tag>
+	<tag>${package-type}</tag>
+	<tag>jquery</tag>
+	<fileSets>
+		<fileSet>
+			<directory>${basedir}</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>build/</exclude>
+				<exclude>target/</exclude>
+				<exclude>pom.xml</exclude>
+			</excludes>
+		</fileSet>
+	</fileSets>
+</package>

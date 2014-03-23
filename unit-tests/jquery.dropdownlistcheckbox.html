@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html class="ie">
+    <head>
+        <title>MultiSelect</title>
+        <script src="http://127.0.0.1:8080/exist/rest//db/apps/shared-resources/resources/scripts/jquery/jquery-1.7.1.min.js" type="text/javascript"/>
+        <script type="text/javascript" src="../core/jquery.dropdownlistcheckbox.js"/>
+        <script type="text/javascript">
+
+		$(document).ready(function() {
+			ddlcb = $("#ddlcb").dropDownListCheckbox({
+				containerCls: "#ddlcb",
+				mainOption: '.ddlcb-all',
+				mainComponentOptionSelected: function() {
+				    $("input[type = 'checkbox']").attr("checked", "checked").each(
+				        function(index) {
+				            ddlcb.registerExternalOption([this.id]);
+				        }    
+				    );
+				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
+				},
+				mainComponentOptionUnselected: function() {
+				    $("input[type = 'checkbox']").removeAttr("checked").each(
+				        function(index) {
+				            ddlcb.unregisterExternalOption([this.id]);
+				        }    
+				    );
+				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
+				},
+				otherComponentOptionSelected: function($option) {
+				    $("input[type = 'checkbox']").removeAttr("checked").each(
+				        function(index) {
+				            ddlcb.unregisterExternalOption([this.id]);
+				        }    
+				    );				    
+				    $("#item-1, #item-2").prop("checked", "checked");
+				    ddlcb.registerExternalOption(["#item-1", "#item-2"]);
+				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
+				},
+				otherComponentOptionUnselected: function($option) {
+				    $("#item-1, #item-2").removeAttr("checked");
+				    ddlcb.unregisterExternalOption(["#item-1", "#item-2"]);
+				    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
+				},
+				showComponentStatusMessage: true,
+				componentStatusMessage: "$numberOfSelectedOptions of $maxNumberOfOptions record(s) selected"
+			}).dropDownListCheckbox.setMaxNumberOfOptions(3);
+			
+            $("#list input").live("click", function (ev) {
+                //ev.preventDefault();
+                var $this = $(this);
+                if ($this.is(":checked")) {
+                    ddlcb.registerExternalOption([$this.attr("id")]);
+                    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
+                } else {
+                    ddlcb.unregisterExternalOption([$this.attr("id")]);
+                    $("#message").text("Identifiers of the selected external options: " + ddlcb.selectedOptionsIndex.toString());
+                }
+            });			
+		});
+
+	</script>
+        <style type="text/css">
+            body {
+                background:#CCC;
+                margin-left: 100px;
+                margin-top: 100px;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="../resources/css/jquery.dropdownlistcheckbox.css"/>
+    </head>
+    <body>
+        <div id="ddlcb" class="ddlcb-checkboxContainer">
+            <div class="ddlcb-left">
+                <div class="ddlcb-checkboxCase"/>
+            </div>
+            <div class="ddlcb-right"/>
+            <span id="ddlcb-status-message"/>
+            <ul>
+                <li class="ddlcb-all">Select all</li>
+                <li class="ddlcb-page">Select page</li>
+            </ul>
+        </div>
+        <br/>
+        <div id="list">
+            <br/>
+            <input id="item-1" type="checkbox" name="animal" value="Cats"/>Cats<br/>
+            <input id="item-2" type="checkbox" name="animal" value="Dogs"/>Dogs<br/>
+            <input id="item-3" type="checkbox" name="animal" value="Birds"/>Birds<br/>
+        </div>
+        <div id="message"/>
+    </body>
+</html>
